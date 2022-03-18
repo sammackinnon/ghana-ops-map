@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 1981px;
+            height: 987px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/EligibilityAreas_1.js"></script>
+        <script src="data/LeaseAreaSizeApprox_2.js"></script>
+        <script src="data/LandownerContacts_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[5.777953421183279,0.7425425386772248],[5.951927752985506,1.093920228600502]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OpenStreetMap_0');
+        map.getPane('pane_OpenStreetMap_0').style.zIndex = 400;
+        var layer_OpenStreetMap_0 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OpenStreetMap_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OpenStreetMap_0;
+        map.addLayer(layer_OpenStreetMap_0);
+        function pop_EligibilityAreas_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DN'] !== null ? autolinker.link(feature.properties['DN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_EligibilityAreas_1_0() {
+            return {
+                pane: 'pane_EligibilityAreas_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(196,78,84,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_EligibilityAreas_1');
+        map.getPane('pane_EligibilityAreas_1').style.zIndex = 401;
+        map.getPane('pane_EligibilityAreas_1').style['mix-blend-mode'] = 'normal';
+        var layer_EligibilityAreas_1 = new L.geoJson(json_EligibilityAreas_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_EligibilityAreas_1',
+            layerName: 'layer_EligibilityAreas_1',
+            pane: 'pane_EligibilityAreas_1',
+            onEachFeature: pop_EligibilityAreas_1,
+            style: style_EligibilityAreas_1_0,
+        });
+        bounds_group.addLayer(layer_EligibilityAreas_1);
+        map.addLayer(layer_EligibilityAreas_1);
+        function pop_LeaseAreaSizeApprox_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Holder</strong><br />' + (feature.properties['Holder'] !== null ? autolinker.link(feature.properties['Holder'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Area (ha)</strong><br />' + (feature.properties['Area (ha)'] !== null ? autolinker.link(feature.properties['Area (ha)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LeaseAreaSizeApprox_2_0() {
+            return {
+                pane: 'pane_LeaseAreaSizeApprox_2',
+                opacity: 1,
+                color: 'rgba(198,152,99,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 0.2,
+                fillColor: 'rgba(65,185,165,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_LeaseAreaSizeApprox_2');
+        map.getPane('pane_LeaseAreaSizeApprox_2').style.zIndex = 402;
+        map.getPane('pane_LeaseAreaSizeApprox_2').style['mix-blend-mode'] = 'normal';
+        var layer_LeaseAreaSizeApprox_2 = new L.geoJson(json_LeaseAreaSizeApprox_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LeaseAreaSizeApprox_2',
+            layerName: 'layer_LeaseAreaSizeApprox_2',
+            pane: 'pane_LeaseAreaSizeApprox_2',
+            onEachFeature: pop_LeaseAreaSizeApprox_2,
+            style: style_LeaseAreaSizeApprox_2_0,
+        });
+        bounds_group.addLayer(layer_LeaseAreaSizeApprox_2);
+        map.addLayer(layer_LeaseAreaSizeApprox_2);
+        function pop_LandownerContacts_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>X</strong><br />' + (feature.properties['X'] !== null ? autolinker.link(feature.properties['X'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Y</strong><br />' + (feature.properties['Y'] !== null ? autolinker.link(feature.properties['Y'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Coordinates</strong><br />' + (feature.properties['Coordinates'] !== null ? autolinker.link(feature.properties['Coordinates'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Location</strong><br />' + (feature.properties['Location'] !== null ? autolinker.link(feature.properties['Location'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Community</strong><br />' + (feature.properties['Community'] !== null ? autolinker.link(feature.properties['Community'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Community Contact</strong><br />' + (feature.properties['Community Contact'] !== null ? autolinker.link(feature.properties['Community Contact'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Landowner</strong><br />' + (feature.properties['Landowner'] !== null ? autolinker.link(feature.properties['Landowner'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Landowner Contact</strong><br />' + (feature.properties['Landowner Contact'] !== null ? autolinker.link(feature.properties['Landowner Contact'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Families involved</strong><br />' + (feature.properties['Families involved'] !== null ? autolinker.link(feature.properties['Families involved'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Estimated Boundaries</strong><br />' + (feature.properties['Estimated Boundaries'] !== null ? autolinker.link(feature.properties['Estimated Boundaries'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Estimated Area (ha)</strong><br />' + (feature.properties['Estimated Area (ha)'] !== null ? autolinker.link(feature.properties['Estimated Area (ha)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Vegetation</strong><br />' + (feature.properties['Vegetation'] !== null ? autolinker.link(feature.properties['Vegetation'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Site Plan</strong><br />' + (feature.properties['Site Plan'] !== null ? autolinker.link(feature.properties['Site Plan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>First Contact Date</strong><br />' + (feature.properties['First Contact Date'] !== null ? autolinker.link(feature.properties['First Contact Date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Last Contact Date</strong><br />' + (feature.properties['Last Contact Date'] !== null ? autolinker.link(feature.properties['Last Contact Date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Status of Negotiations</strong><br />' + (feature.properties['Status of Negotiations'] !== null ? autolinker.link(feature.properties['Status of Negotiations'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Money spent (Ghc)</strong><br />' + (feature.properties['Money spent (Ghc)'] !== null ? autolinker.link(feature.properties['Money spent (Ghc)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LandownerContacts_3_0() {
+            return {
+                pane: 'pane_LandownerContacts_3',
+                shape: 'triangle',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(166,48,212,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,234,1,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_LandownerContacts_3');
+        map.getPane('pane_LandownerContacts_3').style.zIndex = 403;
+        map.getPane('pane_LandownerContacts_3').style['mix-blend-mode'] = 'normal';
+        var layer_LandownerContacts_3 = new L.geoJson(json_LandownerContacts_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LandownerContacts_3',
+            layerName: 'layer_LandownerContacts_3',
+            pane: 'pane_LandownerContacts_3',
+            onEachFeature: pop_LandownerContacts_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_LandownerContacts_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_LandownerContacts_3);
+        map.addLayer(layer_LandownerContacts_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/LandownerContacts_3.png" /> Landowner Contacts': layer_LandownerContacts_3,'<img src="legend/LeaseAreaSizeApprox_2.png" /> Lease Area Size (Approx.)': layer_LeaseAreaSizeApprox_2,'<img src="legend/EligibilityAreas_1.png" /> Eligibility Areas': layer_EligibilityAreas_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
